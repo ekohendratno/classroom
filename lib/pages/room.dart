@@ -1,4 +1,7 @@
-import 'package:classroom/pages/room1.dart';
+import 'package:classroom/main_drawer.dart';
+import 'package:classroom/pages/room_forum.dart';
+import 'package:classroom/pages/room_task.dart';
+import 'package:classroom/pages/room_users.dart';
 import 'package:flutter/material.dart';
 
 class PageRoom extends StatefulWidget {
@@ -10,9 +13,9 @@ class _PageRoomState extends State<PageRoom> {
 
   int selectedIndex = 0;
   List<Widget> widgetOptions = <Widget>[
-    Room1(),
-    Room1(),
-    Room1(),
+    RoomForum(),
+    RoomTask(),
+    RoomUsers(),
   ];
 
   void onTabTapped(index) {
@@ -24,31 +27,6 @@ class _PageRoomState extends State<PageRoom> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        elevation: 1,
-        actions: [
-          IconButton(
-            onPressed: (){},
-            icon: Icon(
-              Icons.info_outline,
-              color: Color(0xFF000000),
-            ),
-          ),
-          PopupMenuButton<int>(
-            itemBuilder: (context) => [
-              PopupMenuItem(
-                value: 1,
-                child: Text("Segarkan"),
-              ),
-              PopupMenuItem(
-                value: 2,
-                child: Text("Kirim masukan"),
-              ),
-            ],
-          )
-        ],
-      ),
-      drawer: Drawer(),
       body: widgetOptions.elementAt(selectedIndex),
       bottomNavigationBar: Container(
         decoration: BoxDecoration(
@@ -83,7 +61,6 @@ class _PageRoomState extends State<PageRoom> {
           ],
         ),
       ),
-
     );
   }
 }

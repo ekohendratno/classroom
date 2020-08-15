@@ -1,3 +1,5 @@
+import 'package:classroom/constants/color_constant.dart';
+import 'package:classroom/main_drawer.dart';
 import 'package:classroom/models/data.dart';
 import 'package:classroom/pages/room.dart';
 import 'package:flutter/material.dart';
@@ -10,11 +12,11 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Class Room',
+      title: 'Ruang Kelas',
       theme: ThemeData(
         brightness: Brightness.light,
-        primaryColor: Colors.white,
-        accentColor: Colors.cyan[600],
+        primaryColor: mColorPrimary,
+        accentColor: mAccentColor,
       ),
       debugShowCheckedModeBanner: false,
       home: HomePage(),
@@ -33,22 +35,16 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       appBar: AppBar(
         elevation: 1,
-        title: Text("ClassRoom"),
+        title: Text("Ruang Kelas"),
         actions: [
-          PopupMenuButton<int>(
-            itemBuilder: (context) => [
-              PopupMenuItem(
-                value: 1,
-                child: Text("Gabung ke kelas"),
+          CircleAvatar(
+            child: ClipOval(
+              child: Image.asset(
+                'asset/images/saya.jpg',
+                width: 40.0,
+                height: 40.0,
+                fit: BoxFit.contain,
               ),
-              PopupMenuItem(
-                value: 2,
-                child: Text("Buat kelas"),
-              ),
-            ],
-            icon: Icon(
-              Icons.add,
-              color: Color(0xFF000000),
             ),
           ),
           PopupMenuButton<int>(
@@ -65,7 +61,7 @@ class _HomePageState extends State<HomePage> {
           )
         ],
       ),
-      drawer: Drawer(),
+      drawer: MainDrawer(),
       body: ListView.builder(
         itemCount: kelas.length,
         itemBuilder: (context, index) {
@@ -137,6 +133,38 @@ class _HomePageState extends State<HomePage> {
           );
         },
       ),
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: Color(0xFFFFFFFF),
+        child: Icon(Icons.add, color: Color(0xFF000000),),
+        onPressed: (){
+          _settingModalBottomSheet(context);
+        },
+      ),
     );
   }
+}
+
+void _settingModalBottomSheet(context){
+  showModalBottomSheet(
+      context: context,
+      builder: (BuildContext bc){
+        return Container(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(8),
+          ),
+          child: new Wrap(
+            children: <Widget>[
+              new ListTile(
+                  title: new Text('Buat kelas'),
+                  onTap: () => {}
+              ),
+              new ListTile(
+                title: new Text('Gabung ke kelas'),
+                onTap: () => {},
+              ),
+            ],
+          ),
+        );
+      }
+  );
 }
